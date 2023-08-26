@@ -23,11 +23,14 @@ export default function Login(){
                 }, 
                 body: JSON.stringify({username, password})
             })
-            if(!res.ok){
+            if(res.status === 404){
                 setErrorMessage("Invalid Username or Password")
             }
-            else{
+            else if(res.status === 200){ 
                 setErrorMessage("user logged in successfully")
+            }
+            else{
+                setErrorMessage("Error in server")
             }
         
     }
