@@ -1,11 +1,11 @@
 import React from "react";
 import './login.css'
 import { useState } from "react";
-
-
+import { useNavigate } from 'react-router-dom'; 
 
 export default function Login(){
     const [errorMessage, setErrorMessage] = useState("");
+    const navigate = useNavigate() ;
 
     const checkLoginInfo = async () =>{
         
@@ -28,6 +28,8 @@ export default function Login(){
             }
             else if(res.status === 200){ 
                 setErrorMessage("user logged in successfully")
+                // route to the chat url 
+                navigate('/chats')
             }
             else{
                 setErrorMessage("Error in server")
