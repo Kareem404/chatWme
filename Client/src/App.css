@@ -1,4 +1,6 @@
 body{
-    background-color: rgb(116, 239, 116); 
-    
+    /*background-color: rgb(116, 239, 116);*/ 
+    background-color: rgb(62, 244, 62);
+    margin: 0;
+    padding: 0;
 }

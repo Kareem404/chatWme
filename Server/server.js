@@ -42,7 +42,8 @@ app.post('/login', (req, res)=>{
 
         if(result.length !== 0){
             console.log('User Found!');
-            res.status(200).json({msg: "User found!"});
+            console.log('result = ',result);
+             res.status(200).json({user_id: result[0].ID});
         }
         else{
             console.log('User not found');

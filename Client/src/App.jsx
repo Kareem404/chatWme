@@ -15,7 +15,10 @@ function App() {
         
         <Routes>
           <Route exact path='/' element={<Login />}></Route>
-          <Route exa path='/chats' element={<Chats />}></Route>
+          <Route exact path='/chats' element={<Chats />}
+              render={(props) => <Chats {...props} user_id={new URLSearchParams(props.location.search).get('id')} />}
+
+          ></Route>
         </Routes>
         
       </div>

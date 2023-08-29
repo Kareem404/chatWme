@@ -1,0 +1,106 @@
+.add-friends{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    margin-right: 40px;
+    border: none;
+    margin-top: 20px;
+    margin-left: 20px;
+    color: white;
+}
+
+.add-friends:hover{
+    border-bottom: 2px solid white;
+    cursor: pointer;
+}
+
+button{
+    background-color: rgb(62, 244, 62);
+}
+
+.create-chatroom{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    margin-right: 40px;
+    border: none;
+    margin-top: 20px;
+    margin-left: 20px;
+    color: white;
+}
+
+.create-chatroom:hover{
+    border-bottom: 2px solid white;
+    cursor: pointer;
+}
+
+.chat-app-title{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: inline;
+    font-size: 40px;
+    margin-left: 20px;
+    color: white;
+    font-weight: bold;
+}
+
+
+.buttons-div{
+    display: inline-block;
+    margin-left: 20%;
+}
+
+nav{
+    background-color: rgb(62, 244, 62);
+    padding-bottom: 20px;
+}
+
+.chats-div{
+    width: 40%;
+    background-color: rgb(133, 254, 133);
+    height: 87.6vh;
+    float: left;
+}
+
+.chatroom-div{
+    
+    width: 60%;
+    /*background-color: red;*/
+    height: 87.6vh;
+    float: right;
+}
+
+.chat-seacrh{
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 420px;
+    height: 30px;
+    border-radius: 8px;
+    padding-left: 5px;
+    border: none;
+    margin-bottom: 20px;
+}
+
+.search-button{
+    display: inline-block;
+}
+
+.chats-container{
+    overflow-y: scroll;
+}
+
+.chat-button{
+    width: 100%;
+    height: 70px;
+    background-color: rgb(43, 250, 43);
+    margin-bottom: 3px;
+    border: none;
+    border-radius: 15px;
+    
+}
+
+.chat-button:hover{
+    opacity: 0.7;
+    cursor: pointer ;
+}
+
+.chat-button:active{
+    opacity: 0.5;
+}
