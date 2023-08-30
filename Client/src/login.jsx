@@ -11,7 +11,6 @@ export default function Login(){
 
     const checkLoginInfo = async () =>{
         
-            console.log("check login info function called")
             let valid = false; 
             // check for validity
             const username = document.getElementById("username").value;
