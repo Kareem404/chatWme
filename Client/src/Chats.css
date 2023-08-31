@@ -104,34 +104,3 @@ nav{
 .chat-button:active{
     opacity: 0.5;
 }
-
-.chatroom-div{
-    
-    width: 60%;
-    background-color: white; 
-    height: 87.6vh;
-    float: right;
-
-}
-
-.message-recived-div{
-    margin-bottom: 4px;
-}
-
-.message-sent-div{
-    margin-top: 4px;
-}
-
-.message-recived{
-    border: 2px solid red;
-    margin-right: 50%;
-    margin-left: 5px;
-    padding: 10px;
-}
-
-.message-sent{
-    border: 2px solid green;
-    margin-left: 50%;
-    margin-right: 5px;
-    padding: 10px;
-}

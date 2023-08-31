@@ -6,6 +6,8 @@ import './Chats.css'
 import $ from 'jquery'; 
 import 'bootstrap'
 
+import Chatroom from "./Chatroom.jsx";
+
 export default function Chats(){
 
     const location = useLocation(); // Get the current location
@@ -69,24 +71,8 @@ export default function Chats(){
                 </div>
             </div>            
 
-            <div className="chatroom-div">
-                <div className="messages-div">
-                    <div className="message-recived-div">
-                        <p className="message-recived">
-                            Hello there, I sent you a message!
-                        </p>
-                    </div>
-                    <div className="message-sent-div">
-                        <p className="message-sent"> 
-                            Heyyy! I replied to you! This is supposed to be a very long message to 
-                            check if they will overflow or not, i think they should not :)
-                        </p>
-                    </div>
-                </div>
-                <div className="send-messgae-div">
-
-                </div>
-            </div>
+            
+            <Chatroom />
         
         </div>
     )
