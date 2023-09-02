@@ -31,6 +31,7 @@ export default function Chats(){
         // chats is an array of object so loop through it to handle each object.
         const chatData = []; 
         for(let i = 0; i < chats.length; i++){
+            const chat_id = chats[i].CHAT_ID; 
             chatData.push(
                 <div className="single-chat">
                     <button className="chat-button">{chats[i].CHAT_NAME}</button>
@@ -66,7 +67,7 @@ export default function Chats(){
             <div className="chats-div">
                 {/*search bar for chats*/}
                 <input type="text" placeholder="Search..." className="chat-seacrh" />
-                <div chats-container> 
+                <div className="chats-container"> 
                     {chatsToDisplay}
                 </div>
             </div>            

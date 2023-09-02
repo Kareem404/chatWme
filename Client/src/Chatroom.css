@@ -1,17 +1,23 @@
 .chatroom-div{
-    width: 60%;
-    background-color: white; 
-    height: 87.6vh;
+    width: 75%;
+    background-color: rgb(244, 222, 222); 
+    height: 83.6vh;
     float: right;
+    display: flex;
+    flex-direction: column;
+    margin-right: 15px;
+    border: 2px solid black;
+    border-radius: 15px;
+    margin-top: 10px;
 }
 
-.message-div{
+.messages-div{
     overflow-y: scroll;
+    height: 100%;
 }
 
 .message-recived-div{
     margin-bottom: 4px;
-
 }
 
 .message-recived{
@@ -23,6 +29,7 @@
 
 .message-sent-div{
     margin-top: 4px;
+    
 }
 
 .message-sent{
@@ -34,7 +41,7 @@
 
 .input-msg-div{
     padding-left: 10px;
-    margin-top: 315px; /*this might need to change later*/
+    margin-bottom: 10px;
 }
 
 .input-msg{
@@ -59,3 +66,4 @@
 .send-btn:active{
     opacity: 0.6
 }
+

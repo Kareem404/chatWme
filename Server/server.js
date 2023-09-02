@@ -6,6 +6,7 @@ const envVar = require('dotenv').config();
 
 const port = 3000
 
+
 app.use(cors()); // to allow reciving data from the frontend that uses a different port
 // TODO: Restrict recieving data. SHOULD only recieve data from port 5178 (react app)
 
@@ -74,3 +75,6 @@ app.get('/chats', (req, res)=>{
 app.listen(port, () =>{
     console.log(`Listening to port ${port}...`)
 })
+
+
+
