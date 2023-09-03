@@ -1,13 +1,28 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import './Chatroom.css'
 import { event } from "jquery";
+
+
+
+export const loadRoomMsgs = async room_id =>{
+    // for now, just delete all the msgs
+
+    setMessages([])
+
+    //TODO: retrieve the msgs from the server for 'chat_id' and then display. 
+    // To display: SetMessages to the array of messages retrieved from the server.
+    // it will be a loop to determine if the user sent or recieved the message.
+    // invoke either functions createRecivedMsg or createSentMsg.
+
+}
 
 export default function Chatroom (){
 
     const [messages, setMessages] = useState([]);
     const [currentMessage, setCurrentMessage] = useState("");
+
 
     const createSentMsg = msg =>{
         const sendMsgDiv = (
@@ -20,6 +35,8 @@ export default function Chatroom (){
 
         return sendMsgDiv; 
     }
+
+    
 
     const createRecievedMsg = msg =>{
         const recivedMsgDiv = (

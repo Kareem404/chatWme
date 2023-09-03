@@ -1,11 +1,18 @@
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url);
+
 const express = require('express')
 const app = express(); 
 const cors = require('cors')
 const mysql = require('mysql2')
 const envVar = require('dotenv').config(); 
+import { Server } from "socket.io";
 
 const port = 3000
+const wsPort = 3001; 
 
+
+// ws documentation: https://socket.io/docs/v4/
 
 app.use(cors()); // to allow reciving data from the frontend that uses a different port
 // TODO: Restrict recieving data. SHOULD only recieve data from port 5178 (react app)
@@ -71,10 +78,51 @@ app.get('/chats', (req, res)=>{
 })
 
 
-// server listening to port:
-app.listen(port, () =>{
-    console.log(`Listening to port ${port}...`)
+
+//------ws handeling-------
+
+
+const socketServer = app.listen(3001, ()=>{
+    console.log('Socket Server is running on port 3001');
+})
+
+const io = require('socket.io')(socketServer, {
+    cors: {
+        origin: '*',
+        methods: ['GET', 'POST']
+    }
+}); 
+
+
+io.on('connection', socket => {
+    socket.on('error', err => {
+        console.error('Socket error:', err);
+    });
+
+    console.log(socket.id, 'connected');
+
+    socket.on('client-join-room', room_id =>{
+        // remove all the rooms that the socket is in. This is done to prevent the user recieving msgs from the remaining sockets
+
+        const rooms = [...socket.rooms]; // get the rooms in an array format
+        console.log(rooms); 
+        
+        // remove all the rooms the user is in except room 1
+        for(let i = 1; i < rooms.length; i++){
+            socket.leave(rooms[i]);
+        }
+
+        socket.join(room_id);
+        
+        console.log(socket.id, 'joined room:', room_id);
+        console.log(socket.id,'rooms are:', (socket.rooms));
+    })
 })
 
 
 
+
+// server listining to port
+app.listen(port, () =>{
+    console.log(`Listening to port ${port}...`)
+})

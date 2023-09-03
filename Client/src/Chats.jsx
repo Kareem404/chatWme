@@ -8,6 +8,16 @@ import 'bootstrap'
 
 import Chatroom from "./Chatroom.jsx";
 
+import { io } from 'socket.io-client'
+
+import { loadRoomMsgs } from "./Chatroom.jsx";
+
+export const socket = io("ws://localhost:3001");
+
+socket.on('connect_error', error => {
+    console.error('Socket.io connection error:', error);
+});
+
 export default function Chats(){
 
     const location = useLocation(); // Get the current location
@@ -21,9 +31,13 @@ export default function Chats(){
         
         const res = await fetch(`http://localhost:3000/chats?id=${user_id}`)
         const chats = await res.json(); 
-        console.log("chats in fetchChats: ",chats); 
 
          return chats; 
+    }
+
+    const joinSocketRoom = (room_id) =>{
+        socket.emit('client-join-room', room_id);
+        loadRoomMsgs(room_id);
     }
 
     const chatDataJSX = async () =>{
@@ -33,7 +47,7 @@ export default function Chats(){
         for(let i = 0; i < chats.length; i++){
             const chat_id = chats[i].CHAT_ID; 
             chatData.push(
-                <div className="single-chat">
+                <div className="single-chat" onClick={()=>joinSocketRoom(chat_id)}> {/*if invoked directly, react will call the function once it renders*/}
                     <button className="chat-button">{chats[i].CHAT_NAME}</button>
                  </div>
             )
