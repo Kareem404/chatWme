@@ -111,11 +111,17 @@ io.on('connection', socket => {
         for(let i = 1; i < rooms.length; i++){
             socket.leave(rooms[i]);
         }
-
-        socket.join(room_id);
+        socket.join(room_id.toString());
         
         console.log(socket.id, 'joined room:', room_id);
         console.log(socket.id,'rooms are:', (socket.rooms));
+    })
+
+    socket.on('msg-sent', (msg, user_id, room_id) =>{
+        console.log(msg, 'was sent by', user_id);
+        // TODO: query the database to check who sent the msg
+        //socket.broadcast.emit('msg-recieved', msg); 
+        socket.to(room_id).emit('msg-recieved', msg)
     })
 })
 

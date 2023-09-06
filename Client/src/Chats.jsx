@@ -10,8 +10,6 @@ import Chatroom from "./Chatroom.jsx";
 
 import { io } from 'socket.io-client'
 
-import { loadRoomMsgs } from "./Chatroom.jsx";
-
 export const socket = io("ws://localhost:3001");
 
 socket.on('connect_error', error => {
@@ -25,6 +23,10 @@ export default function Chats(){
     const user_id = queryParams.get("id"); // Get the user_id from query parameters
 
     
+    const [chatsToDisplay, setChatsToDisplay] = useState([]); // Use state to hold the chats
+
+    const [currentRoomId, setCurrentRoomId] = useState(0); 
+
     // function to load chats: send the id from the database and retrieve the chat content. 
     const fetchChats = async ()=>{
         // send the ID to the database and retrive chat info using a get request.
@@ -37,7 +39,7 @@ export default function Chats(){
 
     const joinSocketRoom = (room_id) =>{
         socket.emit('client-join-room', room_id);
-        loadRoomMsgs(room_id);
+        setCurrentRoomId(room_id)
     }
 
     const chatDataJSX = async () =>{
@@ -54,7 +56,6 @@ export default function Chats(){
         }
         return chatData; 
     }
-    const [chatsToDisplay, setChatsToDisplay] = useState([]); // Use state to hold the chats
 
     useEffect(()=>{
         //$('body').css('background-color', 'white')
@@ -87,7 +88,7 @@ export default function Chats(){
             </div>            
 
             
-            <Chatroom />
+            <Chatroom roomId = {currentRoomId} userId = {user_id}/>
         
         </div>
     )

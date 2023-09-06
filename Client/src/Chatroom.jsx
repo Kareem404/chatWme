@@ -1,27 +1,38 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 
 import './Chatroom.css'
-import { event } from "jquery";
+import { socket } from "./chats.jsx";
 
-
-
-export const loadRoomMsgs = async room_id =>{
-    // for now, just delete all the msgs
-
-    setMessages([])
-
-    //TODO: retrieve the msgs from the server for 'chat_id' and then display. 
-    // To display: SetMessages to the array of messages retrieved from the server.
-    // it will be a loop to determine if the user sent or recieved the message.
-    // invoke either functions createRecivedMsg or createSentMsg.
-
-}
-
-export default function Chatroom (){
+export default function Chatroom (props){
 
     const [messages, setMessages] = useState([]);
     const [currentMessage, setCurrentMessage] = useState("");
+
+    const loadRoomMsgs =  room_id =>{
+        // for now, just delete all the msgs
+    
+        setMessages([])
+    
+        //TODO: retrieve the msgs from the server for 'chat_id' and then display. 
+        // To display: SetMessages to the array of messages retrieved from the server.
+        // it will be a loop to determine if the user sent or recieved the message.
+        // invoke either functions createRecivedMsg or createSentMsg.
+    }
+
+    const handleMessageRecievedEvent = msg =>{
+        const recievedMsgJsx = createRecievedMsg(msg); 
+        setMessages(currentMsgs =>[...currentMsgs, recievedMsgJsx]);
+    }
+
+    useEffect(()=>{
+        loadRoomMsgs(props.roomId); 
+
+        socket.on('msg-recieved', handleMessageRecievedEvent)
+        return () =>{
+            socket.off('msg-recieved', handleMessageRecievedEvent)
+        }
+    }, [props.roomId])
 
 
     const createSentMsg = msg =>{
@@ -55,8 +66,11 @@ export default function Chatroom (){
         const sentMsgJSx = createSentMsg(msg);
         document.getElementById('input-msg').value = ""
         setCurrentMessage("");
+        socket.emit('msg-sent', msg, props.userId, props.roomId.toString());
+
         setMessages(currentMsgs => [...currentMsgs, sentMsgJSx]);
     }
+
 
     return (
         <div className="chatroom-div">
@@ -67,18 +81,6 @@ export default function Chatroom (){
                 </p>
             </div>
             <div className="messages-div">
-                <div className="message-recived-div">
-                    <p className="message-recived">
-                        Hello there, I sent you a message!
-                    </p>
-                </div>
-                <div className="message-sent-div">
-                    <p className="message-sent"> 
-                        Heyyy! I replied to you! This is supposed to be a very long message to 
-                        check if they will overflow or not, i think they should not :)
-                    </p>
-                </div>
-                
                     {messages}
             </div>
 
@@ -96,3 +98,4 @@ export default function Chatroom (){
         </div>
     )
 }
+
