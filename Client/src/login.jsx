@@ -28,7 +28,6 @@ export default function Login(){
                 setErrorMessage("Invalid Username or Password")
             }
             else if(res.status === 200){ 
-                setErrorMessage("user logged in successfully")
                 // route to the chat url 
                 const responseData = await res.json();
                 console.log(responseData); 

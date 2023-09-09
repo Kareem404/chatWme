@@ -26,6 +26,8 @@ export default function Chats(){
     const [chatsToDisplay, setChatsToDisplay] = useState([]); // Use state to hold the chats
 
     const [currentRoomId, setCurrentRoomId] = useState(0); 
+    
+    const [Allchats, setAllChats] = useState([]);
 
     // function to load chats: send the id from the database and retrieve the chat content. 
     const fetchChats = async ()=>{
@@ -33,8 +35,9 @@ export default function Chats(){
         
         const res = await fetch(`http://localhost:3000/chats?id=${user_id}`)
         const chats = await res.json(); 
-
-         return chats; 
+        console.log(chats);
+        setAllChats(chats); 
+        return chats; 
     }
 
     const joinSocketRoom = (room_id) =>{
@@ -44,6 +47,7 @@ export default function Chats(){
 
     const chatDataJSX = async () =>{
         const chats = await fetchChats(); 
+        
         // chats is an array of object so loop through it to handle each object.
         const chatData = []; 
         for(let i = 0; i < chats.length; i++){
@@ -61,6 +65,7 @@ export default function Chats(){
         //$('body').css('background-color', 'white')
         const fetchAndSetChats = async () => {
             const chats = await chatDataJSX();
+            
             setChatsToDisplay(chats); // Set the chats using state
         };
 
@@ -88,7 +93,7 @@ export default function Chats(){
             </div>            
 
             
-            <Chatroom roomId = {currentRoomId} userId = {user_id}/>
+            <Chatroom roomId = {currentRoomId} userId = {user_id} chats = {Allchats}/>
         
         </div>
     )

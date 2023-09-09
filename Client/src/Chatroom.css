@@ -67,3 +67,24 @@
     opacity: 0.6
 }
 
+.chat-info-div{
+    background-color: rgba(192, 192, 192, 0.525);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    height: 60px;
+}
+
+.room-name{
+    color: black;
+    margin-left: 10px;
+}
+
+.no-chatroom-msg{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(153, 150, 150);
+    display: flex;
+    margin-top: 150px;
+    font-size: 20px;
+    font-weight: bold;
+    justify-content: center;
+}

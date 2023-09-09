@@ -8,6 +8,8 @@ export default function Chatroom (props){
 
     const [messages, setMessages] = useState([]);
     const [currentMessage, setCurrentMessage] = useState("");
+    const [currentRoomName, setCurrentRoomName] = useState(''); 
+
 
     const loadRoomMsgs =  room_id =>{
         // for now, just delete all the msgs
@@ -25,8 +27,19 @@ export default function Chatroom (props){
         setMessages(currentMsgs =>[...currentMsgs, recievedMsgJsx]);
     }
 
+
     useEffect(()=>{
         loadRoomMsgs(props.roomId); 
+
+        const allUserChats = props.chats; 
+        console.log(props.chats); 
+        for(let i = 0; i < allUserChats.length; i++){
+          if(allUserChats[i].CHAT_ID == props.roomId){
+                setCurrentRoomName(allUserChats[i].CHAT_NAME)
+                break; 
+            }
+        }
+        
 
         socket.on('msg-recieved', handleMessageRecievedEvent)
         return () =>{
@@ -71,31 +84,42 @@ export default function Chatroom (props){
         setMessages(currentMsgs => [...currentMsgs, sentMsgJSx]);
     }
 
-
-    return (
-        <div className="chatroom-div">
-            <div className="chat-info-div">
-                {/*a nav bar to display chat info*/}
-                <p>
-                    {/*chatroom name, will be handled by the onClick function for a specific chat*/}
+    if(currentRoomName === ""){
+        return (
+            <div className="chatroom-div">
+                <p className="no-chatroom-msg">
+                    Click on a chatroom to display its messages
                 </p>
             </div>
-            <div className="messages-div">
-                    {messages}
-            </div>
-
-                {/*Input msg and send button*/}
-                <div className="input-msg-div">
-                    <input type="text" placeholder="Type Message..." className="input-msg" id="input-msg" onChange={
-                        () =>{
-                            setCurrentMessage(document.getElementById('input-msg').value);
-                        }
-                    } />
-
-                    <button className="send-btn" onClick={sendMsg}>Send</button>
+        )
+    }
+    else{
+        return (
+            <div className="chatroom-div">
+                <div className="chat-info-div">
+                    {/*a nav bar to display chat info*/}
+                    <p className="room-name">
+                        {/*chatroom name, will be handled by the onClick function for a specific chat*/}
+                        {currentRoomName}
+                    </p>
                 </div>
+                <div className="messages-div">
+                        {messages}
+                </div>
+
+                    {/*Input msg and send button*/}
+                    <div className="input-msg-div">
+                        <input type="text" placeholder="Type Message..." className="input-msg" id="input-msg" onChange={
+                            () =>{
+                                setCurrentMessage(document.getElementById('input-msg').value);
+                            }
+                        } />
+
+                        <button className="send-btn" onClick={sendMsg}>Send</button>
+                    </div>
             
-        </div>
-    )
+            </div>
+        )
+    }
 }
 
