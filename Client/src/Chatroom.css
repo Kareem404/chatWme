@@ -71,11 +71,14 @@
     background-color: rgba(192, 192, 192, 0.525);
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
+    border-bottom: 2px solid black;
     height: 60px;
 }
 
 .room-name{
-    color: black;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
     margin-left: 10px;
 }
 
