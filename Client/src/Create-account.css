@@ -1,0 +1,11 @@
+.create-account-div{
+    background-color: white;
+    height: auto;
+    border: 1px solid black;
+}
+
+.create-acconut-title{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 35px;
+    font-weight: bold;
+}
