@@ -115,7 +115,7 @@ export default function Chatroom (props){
                             }
                         } />
 
-                        <button className="send-btn" onClick={sendMsg}>Send <i class="bi bi-send"></i></button>
+                        <button className="send-btn" onClick={sendMsg} accessKey="enter">Send <i class="bi bi-send"></i></button>
                     </div>
             
             </div>

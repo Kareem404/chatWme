@@ -1,3 +1,4 @@
+import { Console } from 'console';
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url);
 
@@ -6,7 +7,6 @@ const app = express();
 const cors = require('cors')
 const mysql = require('mysql2')
 const envVar = require('dotenv').config(); 
-import { Server } from "socket.io";
 
 const port = 3000
 const wsPort = 3001; 
@@ -66,7 +66,6 @@ app.post('/login', (req, res)=>{
 app.get('/chats', (req, res)=>{
     const user_id = req.query.id; 
     console.log(`GET chats of user id=${user_id}`)
-
     sqlCon.query(`
         SELECT * 
         FROM CHAT_APP.CHATROOMS CR JOIN CHAT_APP.CHAT_USERS CU ON  CR.CHAT_ID = CU.CHAT_ID
@@ -77,7 +76,59 @@ app.get('/chats', (req, res)=>{
 
 })
 
+const addUser = (callback) =>{
+     sqlCon.query(`
+        SELECT MAX(ID) AS ID
+        FROM CHAT_APP.USERS
+    `, (err, result) =>{
+        console.log(result);
+        const maxId = result[0].ID + 1; 
+        console.log(maxId); 
+        callback(null, maxId);
+       
+    })
+}
 
+
+app.post('/create-account', (req, res) =>{
+    // check if the username already exists (wont be able to create account if does)
+    
+    sqlCon.query(`
+        SELECT USERNAME
+        FROM CHAT_APP.USERS 
+        WHERE USERNAME = '${req.body.username}'
+    `, (err, result) =>{
+        if(result.length !== 0){
+            // username exists 
+            res.status(401).json({'msg': "Username exists. Please choose a different username"})
+        }
+        else{
+            // username does not exist (add it to the database)
+            
+            console.log(req.body)
+             addUser((err, id)=>{
+                const username = req.body.username;
+                const password = req.body.password; 
+                console.log(id); 
+                sqlCon.query(`
+
+                   INSERT INTO CHAT_APP.USERS VALUES 
+                   (${id}, '${username}', '${password}')
+
+                `, (err, result) =>{
+                 if(err){
+                    return console.log(err);
+                }
+                else{
+                    // user added successfully!
+                    res.status(200).json({'msg': 'Account created successfully!'})
+                }
+            }) 
+            }); 
+            
+        }
+    })
+})
 
 
 //------ws handeling-------
