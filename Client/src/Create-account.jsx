@@ -28,7 +28,7 @@ export default function CreateAccount(){
     }
 
     const handleAddingAccount = async () =>{
-        if(errMsg === ''){
+        if(passErrMsg === ''){
             // send a post request to the server to add the new use to the system
 
             //1. create the user object 
@@ -40,6 +40,8 @@ export default function CreateAccount(){
                 "password": password
             }
 
+            console.log('user tries to create account')
+
             //2. send the post request to the server 
             const res = await fetch('http://localhost:3000/create-account', {
                 method: 'post', 
@@ -47,7 +49,7 @@ export default function CreateAccount(){
                     "content-type": 'application/json'
                 }, 
                 body: JSON.stringify(userObject)
-            }) 
+            })
 
             const resJson = await res.json(); 
             const msg = resJson.msg;   
@@ -55,8 +57,7 @@ export default function CreateAccount(){
                 setErrMsg(msg); 
                 console.log('user account exists')
                 // empty the fields
-                
-                location.reload(); 
+                // location.reload(); 
                 setErrMsg('Username already exists. Please try again');
             }      
             else if(res.status === 200){
@@ -87,7 +88,7 @@ export default function CreateAccount(){
                 <p className="error">
                     {passErrMsg}
                 </p>
-                <button className="login-button" onClick={handleAddingAccount}> 
+                <button className="login-button" onClick={() =>handleAddingAccount()}> 
                     Sign Up
                 </button>
             </div>

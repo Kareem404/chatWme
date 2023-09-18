@@ -11,7 +11,6 @@ export default function Login(){
 
     const checkLoginInfo = async () =>{
         
-            let valid = false; 
             // check for validity
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;

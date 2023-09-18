@@ -85,14 +85,12 @@ const addUser = (callback) =>{
         const maxId = result[0].ID + 1; 
         console.log(maxId); 
         callback(null, maxId);
-       
     })
 }
 
 
 app.post('/create-account', (req, res) =>{
     // check if the username already exists (wont be able to create account if does)
-    
     sqlCon.query(`
         SELECT USERNAME
         FROM CHAT_APP.USERS 
@@ -123,7 +121,7 @@ app.post('/create-account', (req, res) =>{
                     // user added successfully!
                     res.status(200).json({'msg': 'Account created successfully!'})
                 }
-            }) 
+                }) 
             }); 
             
         }
@@ -134,7 +132,7 @@ app.post('/create-account', (req, res) =>{
 //------ws handeling-------
 
 
-const socketServer = app.listen(3001, ()=>{
+const socketServer = app.listen(5000, ()=>{
     console.log('Socket Server is running on port 3001');
 })
 

@@ -10,7 +10,7 @@ import Chatroom from "./Chatroom.jsx";
 
 import { io } from 'socket.io-client'
 
-export const socket = io("ws://localhost:3001");
+export const socket = io("ws://localhost:5000");
 
 socket.on('connect_error', error => {
     console.error('Socket.io connection error:', error);
